@@ -1,20 +1,11 @@
-# STEP 1: install and load packages
-
 pacman::p_load(
   tidyverse, terra,
   sf, giscoR, ggnewscale
 )
 
-
-source("https://raw.githubusercontent.com/milos-agathon/shipping-traffic-maps/main/R/decompress_file.r")
-
-
-
 rastfile <- "C:/Users/User/Desktop/Диссертация/shipdensity_global.tif"
 
 global_traffic <- terra::rast(rastfile)
-
-# STEP 3: Select the area of interest and crop
 
 xmin <- 46.516
 ymin <- 36.483
@@ -47,8 +38,6 @@ shipping_traffic_clean <- terra::ifel(
   NA,
   shipping_traffic
 )
-
-# STEP 4: Get nightlight data
 
 u <- "https://eogdata.mines.edu/nighttime_light/annual/v22/2022/VNL_v22_npp-j01_2022_global_vcmslcfg_c202303062300.average_masked.dat.tif.gz"
 filename <- basename(u)
@@ -85,8 +74,6 @@ nightlight_resampled <- terra::resample(
 )
 
 terra::plot(nightlight_resampled)
-
-# STEP 5: Map
 
 nightlight_cols <- c("#061c2c", "#1f4762", "#FFD966", "white")
 
